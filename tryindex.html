@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="trystyle.css" />
+    <script src="new.js" defer></script>
+  </head>
+  <body>
+    <nav class="header">
+      <div class="container">
+        <div class="header-left">
+          <div class="logo">BB</div>
+          <h1>Budget Buddy</h1>
+          <div class="prof">
+            <h5>My Profile</h5>
+            <div class="myprof">A</div>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="tryindex.html">Home</a>
+          <a href="guide.html">Guide</a>
+           <a href="home.html">About</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- moved Add Transaction button into the page container so it stays aligned with content -->
+      <div class="top-actions">
+        <button id="add-transaction-btn" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add Transaction
+        </button>
+      </div>
+      <section class="summary-cards">
+        <div class="stat-card balance-card">
+          <div class="stat-icon balance-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3>Total Balance</h3>
+            <p id="total-balance">₹0.00</p>
+          </div>
+        </div>
+        <div class="stat-card income-card">
+          <div class="stat-icon income-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3>Total Income</h3>
+            <p id="total-income" class="text-green">₹0.00</p>
+          </div>
+        </div>
+        <div class="stat-card expense-card">
+          <div class="stat-icon expense-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+              <polyline points="17 18 23 18 23 12"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3>Total Expense</h3>
+            <p id="total-expense" class="text-red">₹0.00</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="transaction-list-container">
+        <div class="section-header">
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+            Recent Transactions
+          </h2>
+          <button id="clear-all-btn" class="btn-clear" style="display: none;">
+            Clear All
+          </button>
+        </div>
+        <ul id="transaction-list">
+        </ul>
+      </section>
+    </main>
+
+    <div id="modal-backdrop" class="modal-backdrop hidden">
+      <div id="modal" class="modal">
+        <div class="modal-header">
+          <h2>Add New Transaction</h2>
+          <button id="close-modal-btn" class="close-btn">&times;</button>
+        </div>
+        <form id="transaction-form">
+          <div class="form-control">
+            <label for="text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Description
+            </label>
+            <input
+              type="text"
+              id="text"
+              placeholder="e.g., Coffee, Salary, Groceries"
+              required
+            />
+          </div>
+          <div class="form-control">
+            <label for="amount">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+              Amount
+            </label>
+            <input
+              type="number"
+              id="amount"
+              placeholder="0.00"
+              step="0.01"
+              min="0.01"
+              required
+            />
+          </div>
+          <div class="form-buttons">
+            <button id="add-expense-btn" type="submit" class="btn btn-danger">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                <polyline points="17 18 23 18 23 12"></polyline>
+              </svg>
+              Add Expense
+            </button>
+            <button id="add-income-btn" type="submit" class="btn btn-success">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+              Add Income
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- AI assistant button + popup -->
+<button id="ai-btn" class="ai-btn" aria-label="Open AI assistant">AI</button>
+<div id="ai-popup" class="ai-popup" role="dialog" aria-hidden="true">
+  <div class="ai-popup-inner">
+    <div class="ai-popup-header">
+      <strong>AI Assistant</strong>
+      <button id="close-ai-btn" class="close-ai" aria-label="Close">×</button>
+    </div>
+    <div class="ai-popup-body">
+      <p>Hello — I'm your AI assistant. I can help with budgeting tips, summarize transactions, or suggest categories..</p>
+    </div>
+  </div>
+</div>
